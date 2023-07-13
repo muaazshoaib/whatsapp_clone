@@ -1,10 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'colors.dart';
+import 'features/landing/screens/landing_screen.dart';
 import 'firebase_options.dart';
-import 'screens/mobile_layout_screen.dart';
-import 'screens/web_layout_screen.dart';
-import 'utils/responsive_layout.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileLayoutScreen(),
-        webScreenLayout: WebLayoutScreen(),
-      ),
+      home: const LandingScreen(),
     );
   }
 }
