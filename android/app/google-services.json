@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "427288970807-dp7jkkeo6ols6vtd509q0sps94i8fh1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.whatsapp_clone",
+            "certificate_hash": "30df42cf931338eb624fbe0fd1a760a1f280cb2b"
+          }
+        },
+        {
           "client_id": "427288970807-ee3tekjea2jm2gdng9rt034478r8j9v6.apps.googleusercontent.com",
           "client_type": 3
         }
