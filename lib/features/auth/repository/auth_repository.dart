@@ -2,9 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/utils/constants.dart';
+import 'package:whatsapp_clone/common/repositories/common_firebase_storage_repository.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/features/auth/screens/otp_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/user_information_screen.dart';
+import 'package:whatsapp_clone/mobile_layout_screen.dart';
+import 'package:whatsapp_clone/models/user_model.dart';
+import 'dart:io';
 
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
@@ -69,6 +74,49 @@ class AuthRepository {
         );
       }
     } on FirebaseAuthException catch (e) {
+      showSnackBar(
+        context: context,
+        content: e.toString(),
+      );
+    }
+  }
+
+  void saveUserDataToFirebase({
+    required String name,
+    required File? profilePic,
+    required ProviderRef ref,
+    required BuildContext context,
+  }) async {
+    try {
+      String uid = firebaseAuth.currentUser!.uid;
+      String photoUrl = dummyProfilePhotoUrl;
+
+      if (profilePic != null) {
+        photoUrl = await ref
+            .read(commonFirebaseStorageRepositoryProvider)
+            .storeFileToFirebase(
+              'profilePic/$uid',
+              profilePic,
+            );
+      }
+
+      var user = UserModel(
+        name: name,
+        uid: uid,
+        profilePic: photoUrl,
+        isOnline: true,
+        phoneNumber: firebaseAuth.currentUser!.uid,
+        groupId: [],
+      );
+
+      await firebaseFirestore.collection('users').doc(uid).set(user.toMap());
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const MobileLayoutScreen()),
+            (route) => false);
+      }
+    } catch (e) {
       showSnackBar(
         context: context,
         content: e.toString(),
