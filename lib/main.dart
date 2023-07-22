@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/widgets/error_screen.dart';
 import 'package:whatsapp_clone/common/widgets/loader.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
-import 'package:whatsapp_clone/mobile_layout_screen.dart';
+import 'package:whatsapp_clone/screens/mobile_layout_screen.dart';
 import 'package:whatsapp_clone/router.dart';
-import 'common/utils/colors.dart';
+import 'colors.dart';
 import 'features/landing/screens/landing_screen.dart';
 import 'firebase_options.dart';
 
