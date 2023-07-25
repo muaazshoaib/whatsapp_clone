@@ -54,7 +54,14 @@ class SelectContactRepository {
         if (selectedPhoneNumber == userData.phoneNumber) {
           isFound = true;
           if (context.mounted) {
-            Navigator.pushNamed(context, MobileChatScreen.routeName);
+            Navigator.pushNamed(
+              context,
+              MobileChatScreen.routeName,
+              arguments: {
+                'name': userData.name,
+                'uid': userData.uid,
+              },
+            );
           }
         }
         if (!isFound) {
