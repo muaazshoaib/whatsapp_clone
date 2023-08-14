@@ -32,39 +32,42 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream:
-            ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Loader();
-          }
+      stream:
+          ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Loader();
+        }
 
-          SchedulerBinding.instance.addPostFrameCallback((_) {
+        SchedulerBinding.instance.addPostFrameCallback(
+          (_) {
             messageController
                 .jumpTo(messageController.position.maxScrollExtent);
-          });
+          },
+        );
 
-          return ListView.builder(
-            controller: messageController,
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final messageData = snapshot.data![index];
+        return ListView.builder(
+          controller: messageController,
+          itemCount: snapshot.data!.length,
+          itemBuilder: (context, index) {
+            final messageData = snapshot.data![index];
 
-              var timeSent = DateFormat.Hm().format(messageData.timeSent);
+            var timeSent = DateFormat.Hm().format(messageData.timeSent);
 
-              if (messageData.senderId ==
-                  FirebaseAuth.instance.currentUser!.uid) {
-                return MyMessageCard(
-                  message: messageData.text,
-                  date: timeSent,
-                );
-              }
-              return SenderMessageCard(
+            if (messageData.senderId ==
+                FirebaseAuth.instance.currentUser!.uid) {
+              return MyMessageCard(
                 message: messageData.text,
                 date: timeSent,
               );
-            },
-          );
-        });
+            }
+            return SenderMessageCard(
+              message: messageData.text,
+              date: timeSent,
+            );
+          },
+        );
+      },
+    );
   }
 }
