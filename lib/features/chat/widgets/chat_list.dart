@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:whatsapp_clone/common/widgets/loader.dart';
 import 'package:whatsapp_clone/features/chat/controller/chat_controller.dart';
+import 'package:whatsapp_clone/models/message.dart';
 import 'package:whatsapp_clone/widgets/my_message_card.dart';
 import 'package:whatsapp_clone/widgets/sender_message_card.dart';
 
@@ -31,12 +32,24 @@ class _ChatListState extends ConsumerState<ChatList> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<List<Message>>(
       stream:
           ref.read(chatControllerProvider).chatStream(widget.receiverUserId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loader();
+        }
+
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(
+            child: Text('No messages found.'),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text('Something went wrong...'),
+          );
         }
 
         SchedulerBinding.instance.addPostFrameCallback(

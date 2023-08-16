@@ -24,6 +24,18 @@ class ContactsList extends ConsumerWidget {
             return const Loader();
           }
 
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('No chat contacts found.'),
+            );
+          }
+
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Something went wrong...'),
+            );
+          }
+
           return ListView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data!.length,
