@@ -37,14 +37,12 @@ class ChatRepository {
         .asyncMap(
       (event) async {
         List<ChatContact> contacts = [];
-
         for (var document in event.docs) {
           var chatContact = ChatContact.fromMap(document.data());
           var userData = await firestore
               .collection('users')
               .doc(chatContact.contactId)
               .get();
-
           var user = UserModel.fromMap(userData.data()!);
 
           contacts.add(
