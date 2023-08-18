@@ -68,4 +68,26 @@ class ChatController {
           ),
         );
   }
+
+  void sendGIFMessage(
+    BuildContext context,
+    String gifUrl,
+    String receiverUserId,
+  ) {
+    // https://giphy.com/gifs/oliviarodrigo-olivia-rodrigo-bad-idea-right-bRF16rh8tzGIAeqJuJ
+    // https://i.giphy.com/media/bRF16rh8tzGIAeqJuJ/200.gif
+
+    int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
+    String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
+    String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
+
+    ref.read(userDataAuthProvider).whenData(
+          (value) => chatRepository.sendGIFMessage(
+            context: context,
+            gifUrl: newgifUrl,
+            receiverUserId: receiverUserId,
+            senderUser: value!,
+          ),
+        );
+  }
 }

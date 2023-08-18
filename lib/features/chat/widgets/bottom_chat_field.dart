@@ -38,10 +38,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     }
   }
 
-  void sendFileMessage(
-    File file,
-    MessageEnum messageEnum,
-  ) {
+  void sendFileMessage(File file, MessageEnum messageEnum) {
     ref.read(chatControllerProvider).sendFileMessage(
           context,
           file,
@@ -61,6 +58,19 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     File? video = await pickVideoFromGallery(context);
     if (video != null) {
       sendFileMessage(video, MessageEnum.video);
+    }
+  }
+
+  void selectGIF() async {
+    final gif = await pickGIF(context);
+    if (gif != null) {
+      if (context.mounted) {
+        ref.read(chatControllerProvider).sendGIFMessage(
+              context,
+              gif.url,
+              widget.receiverUserId,
+            );
+      }
     }
   }
 
@@ -121,10 +131,21 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   filled: true,
                   fillColor: mobileChatBoxColor,
                   prefixIcon: SizedBox(
-                    child: IconButton(
-                      icon: const Icon(Icons.emoji_emotions),
-                      color: Colors.grey,
-                      onPressed: toggleEmojiKeyboardContainer,
+                    width: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.emoji_emotions),
+                          color: Colors.grey,
+                          onPressed: toggleEmojiKeyboardContainer,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.gif),
+                          color: Colors.grey,
+                          onPressed: selectGIF,
+                        ),
+                      ],
                     ),
                   ),
                   suffixIcon: SizedBox(
