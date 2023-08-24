@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/enums/message_enum.dart';
+import 'package:whatsapp_clone/common/providers/message_reply_providers.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/chat/repositories/chat_repository.dart';
 import 'package:whatsapp_clone/models/chat_contact.dart';
@@ -41,14 +42,18 @@ class ChatController {
     String text,
     String receiverUserId,
   ) {
+    final messageReply = ref.read(messageReplyProvider);
+
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
             context: context,
             text: text,
             receiverUserId: receiverUserId,
             senderUser: value!,
+            messageReply: messageReply,
           ),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendFileMessage(
@@ -57,6 +62,8 @@ class ChatController {
     String receiverUserId,
     MessageEnum messageEnum,
   ) {
+    final messageReply = ref.read(messageReplyProvider);
+
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendFileMessage(
             context: context,
@@ -65,8 +72,10 @@ class ChatController {
             senderUserData: value!,
             messageEnum: messageEnum,
             ref: ref,
+            messageReply: messageReply,
           ),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendGIFMessage(
@@ -74,6 +83,8 @@ class ChatController {
     String gifUrl,
     String receiverUserId,
   ) {
+    final messageReply = ref.read(messageReplyProvider);
+
     // https://giphy.com/gifs/oliviarodrigo-olivia-rodrigo-bad-idea-right-bRF16rh8tzGIAeqJuJ
     // https://i.giphy.com/media/bRF16rh8tzGIAeqJuJ/200.gif
 
@@ -87,7 +98,9 @@ class ChatController {
             gifUrl: newgifUrl,
             receiverUserId: receiverUserId,
             senderUser: value!,
+            messageReply: messageReply,
           ),
         );
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 }
