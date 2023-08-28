@@ -60,10 +60,9 @@ class AuthRepository {
         },
       );
     } on FirebaseAuthException catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 
@@ -87,10 +86,9 @@ class AuthRepository {
         );
       }
     } on FirebaseAuthException catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 
@@ -130,10 +128,9 @@ class AuthRepository {
             (route) => false);
       }
     } catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 

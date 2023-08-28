@@ -220,10 +220,9 @@ class ChatRepository {
         inMessageReplySenderUsername: senderUser.name,
       );
     } catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 
@@ -267,10 +266,9 @@ class ChatRepository {
         inMessageReplySenderUsername: senderUser.name,
       );
     } catch (e) {
-      showSnackBar(
-        context: context,
-        content: e.toString(),
-      );
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 
@@ -340,7 +338,9 @@ class ChatRepository {
         inMessageReplySenderUsername: senderUserData.name,
       );
     } catch (e) {
-      showSnackBar(context: context, content: e.toString());
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 
@@ -376,7 +376,9 @@ class ChatRepository {
         },
       );
     } catch (e) {
-      showSnackBar(context: context, content: e.toString());
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
   }
 }

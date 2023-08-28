@@ -51,7 +51,6 @@ class StatusRepository {
           );
 
       List<Contact> contacts = [];
-
       if (await FlutterContacts.requestPermission()) {
         contacts = await FlutterContacts.getContacts(withProperties: true);
       }
@@ -115,7 +114,51 @@ class StatusRepository {
 
       await firestore.collection('status').doc(statusId).set(status.toMap());
     } catch (e) {
-      showSnackBar(context: context, content: e.toString());
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
     }
+  }
+
+  Future<List<Status>> getStatus(BuildContext context) async {
+    List<Status> statusData = [];
+
+    try {
+      List<Contact> contacts = [];
+      if (await FlutterContacts.requestPermission()) {
+        contacts = await FlutterContacts.getContacts(withProperties: true);
+      }
+      for (int i = 0; i < contacts.length; i++) {
+        var statusesSnapShot = await firestore
+            .collection('status')
+            .where(
+              'phoneNumber',
+              isEqualTo: contacts[i].phones[0].number.replaceAll(
+                    ' ',
+                    '',
+                  ),
+            )
+            .where(
+              'createdAt',
+              isGreaterThan: DateTime.now()
+                  .subtract(const Duration(hours: 24))
+                  .microsecondsSinceEpoch,
+            )
+            .get();
+
+        for (var tempData in statusesSnapShot.docs) {
+          var tempStatus = Status.fromMap(tempData.data());
+
+          if (tempStatus.whoCanSee.contains(auth.currentUser!.uid)) {
+            statusData.add(tempStatus);
+          }
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
+    }
+    return statusData;
   }
 }

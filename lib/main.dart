@@ -1,3 +1,8 @@
+// WhatsApp Clone
+// Tutorial link: https://www.youtube.com/watch?v=yqwfP2vXWJQ
+// GitHub repository: https://github.com/muaazshoaib/whatsapp_clone
+// Currently at: 08:05:00
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

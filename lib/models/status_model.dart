@@ -1,4 +1,3 @@
-
 class Status {
   final String uid;
   final String username;
@@ -8,7 +7,7 @@ class Status {
   final String profilePic;
   final String statusId;
   final List<String> whoCanSee;
-  
+
   Status({
     required this.uid,
     required this.username,
@@ -21,7 +20,7 @@ class Status {
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'uid': uid,
       'username': username,
       'phoneNumber': phoneNumber,
@@ -40,10 +39,9 @@ class Status {
       phoneNumber: map['phoneNumber'] ?? '',
       photoUrl: List<String>.from(map['photoUrl']),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      profilePic: map['profilePic'] ?? '' ,
-      statusId: map['statusId'] ?? '' ,
+      profilePic: map['profilePic'] ?? '',
+      statusId: map['statusId'] ?? '',
       whoCanSee: List<String>.from(map['whoCanSee']),
-   );
+    );
   }
-
 }
