@@ -33,6 +33,7 @@ dependencies:
   path_provider: ^2.1.0
   audioplayers: ^5.1.0
   swipe_to: ^1.0.2
+  story_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
