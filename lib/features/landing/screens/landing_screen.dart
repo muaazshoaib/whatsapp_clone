@@ -19,7 +19,7 @@ class LandingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
+            SizedBox(height: size.height * 0.1),
             const Text(
               'Welcome to WhatsApp',
               style: TextStyle(
@@ -27,14 +27,14 @@ class LandingScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: size.height / 9),
+            SizedBox(height: size.height * 0.12),
             Image.asset(
               'assets/bg.png',
               height: 300,
               width: 300,
               color: tabColor,
             ),
-            SizedBox(height: size.height / 9),
+            SizedBox(height: size.height * 0.12),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
@@ -45,7 +45,7 @@ class LandingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: size.height * 0.03),
             SizedBox(
               width: size.width * 0.75,
               child: CustomButton(
@@ -53,7 +53,7 @@ class LandingScreen extends StatelessWidget {
                 text: 'AGREE AND CONTINUE',
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: size.height * 0.05),
           ],
         ),
       ),

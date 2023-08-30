@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/constants.dart';
+
 import 'package:whatsapp_clone/common/repositories/common_firebase_storage_repository.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/features/auth/screens/otp_screen.dart';
@@ -100,7 +100,8 @@ class AuthRepository {
   }) async {
     try {
       String uid = firebaseAuth.currentUser!.uid;
-      String photoUrl = dummyProfilePhotoUrl;
+      String photoUrl =
+          'https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic.jpg';
 
       if (profilePic != null) {
         photoUrl = await ref

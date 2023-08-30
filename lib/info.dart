@@ -1,11 +1,10 @@
-import 'package:whatsapp_clone/constants.dart';
-
 const info = [
   {
     'name': 'Muaaz Shoaib',
     'message': "Lorem ipsum dolor sit amet.",
     'time': '11:00 am',
-    'profilePic': muaazProfilePhotoUrl,
+    'profilePic':
+        'https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic.jpg',
   },
 ];
 
