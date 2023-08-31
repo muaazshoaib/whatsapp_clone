@@ -52,18 +52,6 @@ class _ChatListState extends ConsumerState<ChatList> {
           return const Loader();
         }
 
-        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(
-            child: Text('No messages found.'),
-          );
-        }
-
-        if (snapshot.hasError) {
-          return const Center(
-            child: Text('Something went wrong...'),
-          );
-        }
-
         SchedulerBinding.instance.addPostFrameCallback(
           (_) {
             messageController

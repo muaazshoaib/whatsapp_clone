@@ -71,7 +71,7 @@ class GroupRepository {
           auth.currentUser!.uid,
           ...uids,
         ],
-        // timeSent: timeSent,
+        timeSent: DateTime.now(),
       );
 
       await firestore.collection('groups').doc(groupId).set(group.toMap());
