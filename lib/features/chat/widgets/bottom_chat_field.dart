@@ -15,9 +15,12 @@ import 'package:whatsapp_clone/features/chat/widgets/message_reply_preview.dart'
 
 class BottomChatField extends ConsumerStatefulWidget {
   final String receiverUserId;
+  final bool isGroupChat;
+
   const BottomChatField({
     super.key,
     required this.receiverUserId,
+    required this.isGroupChat,
   });
 
   @override
@@ -56,6 +59,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             _messageController.text.trim(),
             widget.receiverUserId,
+            widget.isGroupChat,
           );
       setState(() {
         _messageController.text = '';
@@ -87,6 +91,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           file,
           widget.receiverUserId,
           messageEnum,
+          widget.isGroupChat,
         );
   }
 
@@ -112,6 +117,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
               context,
               gif.url,
               widget.receiverUserId,
+              widget.isGroupChat,
             );
       }
     }

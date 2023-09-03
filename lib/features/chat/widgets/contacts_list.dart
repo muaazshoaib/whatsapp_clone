@@ -21,6 +21,7 @@ class ContactsList extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            // Chat groups
             StreamBuilder<List<Group>>(
               stream: ref.watch(chatControllerProvider).chatGroups(),
               builder: (context, snapshot) {
@@ -44,6 +45,7 @@ class ContactsList extends ConsumerWidget {
                               arguments: {
                                 'name': groupData.name,
                                 'uid': groupData.groupId,
+                                'isGroupChat': true,
                               },
                             );
                           },
@@ -86,6 +88,8 @@ class ContactsList extends ConsumerWidget {
                 );
               },
             ),
+
+            // Chat contacts
             StreamBuilder<List<ChatContact>>(
               stream: ref.watch(chatControllerProvider).chatContacts(),
               builder: (context, snapshot) {
@@ -109,6 +113,7 @@ class ContactsList extends ConsumerWidget {
                               arguments: {
                                 'name': chatContactData.name,
                                 'uid': chatContactData.contactId,
+                                'isGroupChat': false,
                               },
                             );
                           },
