@@ -34,7 +34,7 @@ class LandingScreen extends StatelessWidget {
               width: 300,
               color: tabColor,
             ),
-            SizedBox(height: size.height * 0.12),
+            SizedBox(height: size.height * 0.10),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
@@ -45,7 +45,7 @@ class LandingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: size.height * 0.03),
+            SizedBox(height: size.height * 0.01),
             SizedBox(
               width: size.width * 0.75,
               child: CustomButton(
@@ -53,7 +53,7 @@ class LandingScreen extends StatelessWidget {
                 text: 'AGREE AND CONTINUE',
               ),
             ),
-            SizedBox(height: size.height * 0.05),
+            SizedBox(height: size.height * 0.02),
           ],
         ),
       ),
