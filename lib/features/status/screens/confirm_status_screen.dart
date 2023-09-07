@@ -1,7 +1,8 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:whatsapp_clone/colors.dart';
+import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/features/status/controller/status_controller.dart';
 
 class ConfirmStatusScreen extends ConsumerWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/colors.dart';
+import 'package:whatsapp_clone/common/utils/colors.dart';
 import 'package:whatsapp_clone/common/widgets/custom_button.dart';
 import 'package:whatsapp_clone/features/auth/screens/login_screen.dart';
 
@@ -19,7 +19,7 @@ class LandingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: size.height * 0.1),
+            SizedBox(height: size.height * 0.08),
             const Text(
               'Welcome to WhatsApp',
               style: TextStyle(
@@ -27,14 +27,14 @@ class LandingScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: size.height * 0.12),
+            SizedBox(height: size.height * 0.1),
             Image.asset(
               'assets/bg.png',
               height: 300,
               width: 300,
               color: tabColor,
             ),
-            SizedBox(height: size.height * 0.10),
+            SizedBox(height: size.height * 0.1),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
@@ -45,7 +45,7 @@ class LandingScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: size.height * 0.01),
+            SizedBox(height: size.height * 0.03),
             SizedBox(
               width: size.width * 0.75,
               child: CustomButton(
@@ -53,7 +53,7 @@ class LandingScreen extends StatelessWidget {
                 text: 'AGREE AND CONTINUE',
               ),
             ),
-            SizedBox(height: size.height * 0.02),
+            SizedBox(height: size.height * 0.03),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/features/call/screens/call_screen.dart';
 import 'package:whatsapp_clone/models/call.dart';
+import 'package:whatsapp_clone/models/group.dart' as model;
 
 final callRepositoryProvider = Provider(
   (ref) => CallRepository(
@@ -62,6 +63,52 @@ class CallRepository {
     }
   }
 
+  void makeGroupCall(
+    Call senderCallData,
+    BuildContext context,
+    Call receiverCallData,
+  ) async {
+    try {
+      await firestore
+          .collection('call')
+          .doc(senderCallData.callerId)
+          .set(senderCallData.toMap());
+
+      var groupSnapshot = await firestore
+          .collection('groups')
+          .doc(senderCallData.receiverId)
+          .get();
+
+      model.Group group = model.Group.fromMap(groupSnapshot.data()!);
+
+      for (var id in group.membersUid) {
+        await firestore
+            .collection('call')
+            .doc(id)
+            .set(receiverCallData.toMap());
+      }
+
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return CallScreen(
+                channelId: senderCallData.callId,
+                call: senderCallData,
+                isGroupChat: true,
+              );
+            },
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
+    }
+  }
+
   void endCall(
     String callerId,
     String receiverId,
@@ -71,6 +118,26 @@ class CallRepository {
       await firestore.collection('call').doc(callerId).delete();
 
       await firestore.collection('call').doc(receiverId).delete();
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context: context, content: e.toString());
+      }
+    }
+  }
+
+  void endGroupCall(
+    String callerId,
+    String receiverId,
+    BuildContext context,
+  ) async {
+    try {
+      await firestore.collection('call').doc(callerId).delete();
+      var groupSnapshot =
+          await firestore.collection('groups').doc(receiverId).get();
+      model.Group group = model.Group.fromMap(groupSnapshot.data()!);
+      for (var id in group.membersUid) {
+        await firestore.collection('call').doc(id).delete();
+      }
     } catch (e) {
       if (context.mounted) {
         showSnackBar(context: context, content: e.toString());

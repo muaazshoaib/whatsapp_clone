@@ -25,7 +25,8 @@ class CallScreen extends ConsumerStatefulWidget {
 class _CallScreenState extends ConsumerState<CallScreen> {
   AgoraClient? client;
 
-  String baseUrl = 'https://flutter-whatsapp-clone-server-ee7a18bb2fff.herokuapp.com/';
+  String baseUrl =
+      'https://flutter-whatsapp-clone-server-ee7a18bb2fff.herokuapp.com/';
 
   @override
   void initState() {
